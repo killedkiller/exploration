@@ -74,4 +74,58 @@
 
 ---
 
+## 2026-10-07 · 补充世界背景与规则
+
+**用户要求**：实体模型还需包含世界观背景；空间场景可以很小，但应属于一个有规则与来历的世界。
+
+**已更新**：`entity-model.md` 至 0.2，加入时代与生活条件、自然与超常条件、地理联系、制度习俗、历史和外部形势等候选属性，并说明它们如何影响地点、人物、物品、时间和事件。
+
+**Agent 提出的划分**：客观规律决定行动条件，社会规范影响选择与评价，模拟运行规则决定实现方式；人物获得的背景信息按实际认知限定。具体世界观和规则尚未选定。
+
+**接续候选**：选几条与酒馆生活有关的背景与规则，再填入人物、物品和一次行动，检查它们能否产生具体体验。
+
+**证据边界**：商路、近期失窃和夜间关门惯例是说明模型的假设例子，尚未成为用户选择的世界设定；本轮没有新增试玩证据。
+
+---
+
+## 2026-10-07 · 查证场景录制与人物差异方案
+
+**用户问题**：2D 与 3D 如何承载约束、人物移动、固定机位和世界经历的视频输出；共用 GPT 6 等基础模型时，人物是否只能依靠提示形成差异，广泛的预训练知识如何影响角色认知；是否可以对约 70B 级开源模型进行人格后训练，以及还有哪些方案。
+
+**已查证的场景工具**：
+
+- Unity 的 [AI Navigation](https://docs.unity3d.com/Packages/com.unity.ai.navigation@2.0/manual/index.html) 提供导航与动态障碍能力，[Cinemachine](https://docs.unity3d.com/Packages/com.unity.cinemachine@3.1/manual/index.html) 控制机位、跟随和切换，[Recorder](https://docs.unity3d.com/Packages/com.unity.recorder@5.1/manual/index.html) 可录制运行中的画面、声音及运动。该 Recorder 用于编辑器 Play 模式，不能直接用于独立构建。
+- Godot 有 [2D 和 3D NavigationAgent](https://docs.godotengine.org/en/stable/tutorials/navigation/navigation_using_navigationagents.html)，移动执行仍由脚本负责；[Movie Maker](https://docs.godotengine.org/en/stable/tutorials/animation/creating_movies.html) 可录制 2D 或 3D 项目的离线视频与音频。
+- Unreal 的 [Take Recorder](https://dev.epicgames.com/documentation/en-us/unreal-engine/take-recorder-in-unreal-engine) 将人物运动、镜头等记录进 Sequencer，[Movie Render Pipeline](https://dev.epicgames.com/documentation/en-us/unreal-engine/movie-render-pipeline-in-unreal-engine) 支持电影及图像序列输出。
+
+以上支持场景呈现与录制的技术可行性；世界状态、人物认知和决策的接入仍是本项目需要制作的部分。具体引擎没有选定。
+
+**人物差异的资料依据**：[OpenAI 提示工程文档](https://developers.openai.com/api/docs/guides/prompt-engineering) 说明身份、指令、示例与上下文的组合；[优化指南](https://developers.openai.com/api/docs/guides/optimizing-llm-accuracy) 区分上下文和行为优化。[Character-LLM](https://arxiv.org/abs/2310.10158) 研究通过人物经历和设定训练角色，[InCharacter](https://arxiv.org/abs/2310.17976) 研究人格表现的评估。[Hugging Face PEFT 文档](https://huggingface.co/docs/transformers/en/peft) 支持多个适配器的加载和切换。
+
+**Agent 的判断与候选**：共用基础模型可以配合不同设定、经历、认知、目标、关系和行为示例；必要时加入明确的选择偏好或决策规则，再根据具体失败考虑角色适配器或后训练。限制提供给角色的信息能防止直接读取世界秘密，但不能抹去模型已有的通用知识，也不能保证没有猜测与编造。人格后训练改变行为倾向，不保证完成知识遗忘。
+
+**对角色行为的区分**：撒谎、拒绝玩家、维护自身利益等可以作为虚构人物的选择来定义；越狱程度不作为人格差异或生命感的判据。
+
+**新实验候选**：相同信息与情境下比较不同人物的行动选择，再用连续事件检查是否记得经历、保持角色动机、遵守信息范围。视频回放可记录事件及必要的位置、动画与对白数据，让已发生的体验能够重看。
+
+**证据边界**：本轮核对了文档与研究，未安装引擎、调用模型、训练角色或进行实际仿真。用户对创作环节的兴趣与疲惫仍未从这次技术讨论推断。
+
+---
+
+## 2026-10-07 · 展开人物记忆与认知机制
+
+**用户指出**：人物的记忆机制需要包含观察到的事物，并与整个人物设定一起考虑，是核心设计内容。
+
+**已更新**：`entity-model.md` 至 0.3，展开设定、自我认识、当前观察、个人经历、认知与关系判断的候选划分，加入信息来源、时间、相关对象、相信程度和决策时想起什么的讨论。
+
+**Agent 补充的边界**：创作者掌握的真实设定与人物的自我认识可以不同；世界事件与人物实际感知的内容分别表达。观察静止事物也可以成为新经历，听闻和归纳保留来源与不确定性。
+
+**参考依据**：[Generative Agents 的记忆与检索部分](https://arxiv.org/html/2304.03442v2#S4.SS1) 将直接观察等经历纳入记忆流，按当前处境检索，并结合近期性、重要性和关联性选择记录；其反思机制形成较高层次的推断。本项目具体机制仍需检验。
+
+**实验候选**：人物察觉一件事后经历其他事件，再面对相关选择，观察旧经历是否被想起并影响行动；同时检查不在场角色的认知范围。
+
+**证据边界**：本轮扩展概念模型，尚无记忆机制实现或行为测试结果。
+
+---
+
 后续记录可按需要使用：日期与主题、实验问题、实际发生的事情、用户反馈、支持或削弱假设的证据、Agent 的暂时解释、下一步决定或候选。简短记录即可，不要求每次填满所有项目。
